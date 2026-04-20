@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIREMA</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>SIREMA</h1>
+        <p>Sistem Informasi Rekapitulasi Magang - UPT Kearsipan UNNES</p>
+      </header>
+
+      <section class="form-section">
+        <h2>Form Absensi Hari Ini</h2>
+        <form id="form-absensi">
+          <div class="input-group">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Masukkan nama..." required />
+          </div>
+          <div class="input-group">
+            <label for="instansi">Asal Kampus / Sekolah</label>
+            <input type="text" id="instansi" placeholder="Misal: Universitas X..." required />
+          </div>
+          <div class="input-group">
+            <label for="status">Status Kehadiran</label>
+            <select id="status" required>
+              <option value="Hadir">Hadir</option>
+              <option value="Izin">Izin</option>
+              <option value="Sakit">Sakit</option>
+            </select>
+          </div>
+          <button type="submit" id="btn-simpan">Simpan Data</button>
+        </form>
+      </section>
+
+      <section class="table-section">
+        <h2>Data Rekapan Magang</h2>
+        <table id="tabel-rekapan">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Tanggal</th>
+              <th>Nama Lengkap</th>
+              <th>Asal Instansi</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="data-magang">
+            </tbody>
+        </table>
+      </section>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
