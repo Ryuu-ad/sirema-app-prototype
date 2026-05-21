@@ -1,94 +1,28 @@
-/* style.css */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7f6;
-  color: #333;
-  margin: 0;
-  padding: 20px;
+:root {
+    --unnes-blue: #002244;
+    --unnes-yellow: #FFD700;
+    --unnes-red: #DA251D;
+    --off-white: #F9FAFB;
+}
+body { font-family: 'Inter', sans-serif; background-color: var(--off-white); color: #333; }
+h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
+
+.bg-unnes { background-color: var(--unnes-blue); }
+.text-unnes-yellow { color: var(--unnes-yellow); }
+
+/* Navigation & Logic */
+.page { display: none; min-height: 80vh; animation: fadeIn 0.4s ease; }
+.active-page { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed; inset: 0; z-index: 9999; background: var(--unnes-blue);
+    display: flex; justify-content: center; align-items: center; transition: 0.5s;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-header {
-  text-align: center;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
-}
-
-header h1 {
-  color: #007bff;
-  margin: 0;
-}
-
-.form-section, .table-section {
-  margin-bottom: 30px;
-}
-
-.input-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; /* Agar padding tidak melebihi lebar 100% */
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 16px;
-  width: 100%;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-th {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-hapus {
-  background-color: #dc3545;
-  width: auto;
-  padding: 5px 10px;
-  font-size: 12px;
-}
-
-.btn-hapus:hover {
-  background-color: #c82333;
+/* Profile Overlay */
+#profile-overlay {
+    position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.5);
+    display: none; justify-content: flex-end; backdrop-filter: blur(4px);
 }

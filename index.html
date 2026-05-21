@@ -1,59 +1,141 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIREMA</title>
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>SIREMA</h1>
-        <p>Sistem Informasi Rekapitulasi Magang - UPT Kearsipan UNNES</p>
-      </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sirema - UPT Kearsipan UNNES</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./src/style.css">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
 
-      <section class="form-section">
-        <h2>Form Absensi Hari Ini</h2>
-        <form id="form-absensi">
-          <div class="input-group">
-            <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" placeholder="Masukkan nama..." required />
-          </div>
-          <div class="input-group">
-            <label for="instansi">Asal Kampus / Sekolah</label>
-            <input type="text" id="instansi" placeholder="Misal: Universitas X..." required />
-          </div>
-          <div class="input-group">
-            <label for="status">Status Kehadiran</label>
-            <select id="status" required>
-              <option value="Hadir">Hadir</option>
-              <option value="Izin">Izin</option>
-              <option value="Sakit">Sakit</option>
-            </select>
-          </div>
-          <button type="submit" id="btn-simpan">Simpan Data</button>
-        </form>
-      </section>
-
-      <section class="table-section">
-        <h2>Data Rekapan Magang</h2>
-        <table id="tabel-rekapan">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Tanggal</th>
-              <th>Nama Lengkap</th>
-              <th>Asal Instansi</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="data-magang">
-            </tbody>
-        </table>
-      </section>
+    <div id="loading-screen">
+        <h1 class="text-white text-4xl font-extrabold tracking-widest font-heading">SIREMA</h1>
     </div>
 
+    <header class="bg-unnes text-white sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-unnes-yellow font-heading cursor-pointer nav-trigger" data-page="beranda">SIREMA</div>
+            <div class="flex items-center space-x-6">
+                <button class="hover:text-yellow-400 font-medium nav-trigger" data-page="tentang">Tentang Kami</button>
+                <button class="profile-toggle flex items-center space-x-2 bg-yellow-500 text-blue-900 px-4 py-1 rounded-full font-bold">
+                    <i class="fas fa-user-circle"></i> <span>Profile</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div id="profile-overlay" class="profile-toggle">
+        <div class="bg-white w-80 h-full p-8 shadow-2xl profile-content">
+            <div class="flex justify-between items-center mb-8 border-b pb-4">
+                <h3 class="text-xl font-bold text-unnes font-heading">Data Peserta</h3>
+                <button class="profile-toggle"><i class="fas fa-times text-gray-400"></i></button>
+            </div>
+            <div class="space-y-6">
+                <div><p class="text-xs text-gray-400 uppercase font-bold">Nama Lengkap</p><p class="font-semibold">Ahmad Rivaldi</p></div>
+                <div><p class="text-xs text-gray-400 uppercase font-bold">Nomor Telepon</p><p class="font-semibold">0812-3456-7890</p></div>
+                <div><p class="text-xs text-gray-400 uppercase font-bold">Alamat Rumah</p><p class="font-semibold">Jl. Gajah Mada No. 12, Semarang</p></div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section id="beranda" class="page active-page">
+            <div class="relative h-[70vh] bg-gray-900 flex items-end p-12 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover opacity-40">
+                <div class="relative z-10 text-white">
+                    <h2 class="text-7xl font-black font-heading opacity-90">UPT Archive</h2>
+                </div>
+            </div>
+            <div class="container mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 pb-20">
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="mendaftar">
+                    <i class="fas fa-user-plus text-3xl mb-4 text-blue-900"></i>
+                    <h3 class="font-bold font-heading">Mendaftar Magang</h3>
+                </div>
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="peserta">
+                    <i class="fas fa-users text-3xl mb-4 text-blue-900"></i>
+                    <h3 class="font-bold font-heading">Daftar Peserta</h3>
+                </div>
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="peraturan">
+                    <i class="fas fa-gavel text-3xl mb-4 text-blue-900"></i>
+                    <h3 class="font-bold font-heading">Peraturan</h3>
+                </div>
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="absensi">
+                    <i class="fas fa-clock text-3xl mb-4 text-blue-900"></i>
+                    <h3 class="font-bold font-heading">Absensi</h3>
+                </div>
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="tugas">
+                    <i class="fas fa-tasks text-3xl mb-4 text-blue-900"></i>
+                    <h3 class="font-bold font-heading">Tugas</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="tentang" class="page">
+            <div class="container mx-auto px-6 py-16">
+                <h2 class="text-4xl font-black text-blue-900 mb-8 font-heading">Tentang Kami</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-sm mb-16 text-lg leading-relaxed">
+                    UPT Kearsipan Universitas Negeri Semarang merupakan unit yang berfokus pada tata kelola arsip universitas guna mendukung transparansi dan akuntabilitas informasi di lingkungan kampus konservasi.
+                </div>
+                </div>
+        </section>
+
+        <section id="mendaftar" class="page container mx-auto px-6 py-16">
+            <h2 class="text-3xl font-black text-blue-900 mb-8 font-heading">Formulir Pendaftaran</h2>
+            <div class="max-w-2xl bg-white p-10 rounded-2xl shadow-lg border-t-8 border-unnes">
+                <form class="space-y-4">
+                    <button class="w-full bg-blue-900 text-yellow-400 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-blue-800 transition">Daftar Sekarang</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="absensi" class="page container mx-auto px-6 py-16">
+            <div id="absensi-main-view">
+                <h2 class="text-3xl font-black text-blue-900 mb-8 font-heading">Absensi Kehadiran</h2>
+                <div class="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl text-center">
+                    <div id="real-clock" class="text-5xl font-mono font-bold mb-8 text-gray-800">00:00:00</div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="bg-green-600 text-white py-6 rounded-2xl font-bold shadow-lg hover:bg-green-700">MASUK</button>
+                        <button class="bg-red-600 text-white py-6 rounded-2xl font-bold shadow-lg hover:bg-red-700">PULANG</button>
+                    </div>
+                    <button class="izin-trigger w-full mt-6 bg-yellow-500 text-blue-900 py-4 rounded-2xl font-bold flex items-center justify-center space-x-2" data-action="show">
+                        <i class="fas fa-envelope-open-text"></i> <span>AJUKAN IZIN</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="absensi-izin-view" class="hidden">
+                <div class="flex items-center mb-8">
+                    <button class="izin-trigger text-gray-400 hover:text-blue-900 mr-4 text-2xl" data-action="hide"><i class="fas fa-arrow-left"></i></button>
+                    <h2 class="text-3xl font-black text-blue-900 font-heading">Form Izin & Riwayat</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border-l-8 border-yellow-500">
+                        <h3 class="text-xl font-bold mb-6 font-heading">Alasan Izin</h3>
+                        <form id="form-izin">
+                            <textarea required class="w-full border p-4 rounded-xl bg-gray-50 h-40 mb-4 focus:outline-blue-900" placeholder="Jelaskan alasan izin Anda secara detail..."></textarea>
+                            <button type="submit" class="w-full bg-blue-900 text-white py-4 rounded-xl font-bold uppercase">Kirim Izin</button>
+                        </form>
+                    </div>
+                    </div>
+            </div>
+        </section>
+        
+        </main>
+
+    <footer class="bg-unnes text-white pt-16 pb-8 mt-20">
+        <button class="nav-trigger block text-sm hover:translate-x-2 transition underline decoration-yellow-500 underline-offset-4 font-medium uppercase" data-page="beranda">Kembali ke Beranda</button>
+        </footer>
+
     <script type="module" src="./src/main.js"></script>
-  </body>
+</body>
 </html>

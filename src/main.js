@@ -1,97 +1,69 @@
-// main.js
-import './style.css'; // Memuat CSS
-import $ from 'jquery'; // Memuat jQuery yang sudah kamu install
+// Import fungsi tambahan dari file lain jika diperlukan
+// import { prosesData } from './api.js'; 
 
-// Kita jalankan kode hanya setelah semua elemen HTML siap dibaca
-$(document).ready(function () {
-  
-  // 1. Fungsi untuk mengambil data dari LocalStorage
-  function ambilData() {
-    // Coba ambil data 'sirema_data', jika kosong, kembalikan array kosong []
-    let data = localStorage.getItem('sirema_data');
-    return data ? JSON.parse(data) : [];
-  }
-
-  // 2. Fungsi untuk menampilkan data ke tabel
-  function tampilkanData() {
-    let dataMagang = ambilData();
-    let tbody = $('#data-magang');
+$(document).ready(function() {
     
-    tbody.empty(); // Kosongkan tabel dulu sebelum diisi ulang
+    // 1. Loading Screen
+    setTimeout(function() {
+        $('#loading-screen').animate({ opacity: 0 }, 500, function() {
+            $(this).hide();
+        });
+    }, 1500);
 
-    // Jika belum ada data
-    if (dataMagang.length === 0) {
-      tbody.append('<tr><td colspan="6">Belum ada data absensi hari ini.</td></tr>');
-      return;
-    }
-
-    // Looping (ulangi) data dan masukkan satu per satu ke tabel
-    dataMagang.forEach(function (item, index) {
-      let baris = `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${item.tanggal}</td>
-          <td>${item.nama}</td>
-          <td>${item.instansi}</td>
-          <td>${item.status}</td>
-          <td>
-            <button class="btn-hapus" data-id="${index}">Hapus</button>
-          </td>
-        </tr>
-      `;
-      tbody.append(baris);
+    // 2. Routing System (Navigasi Halaman)
+    $('.nav-trigger').on('click', function() {
+        const targetPage = $(this).data('page');
+        
+        $('.page').removeClass('active-page');
+        $('#' + targetPage).addClass('active-page');
+        
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
     });
-  }
 
-  // 3. Menangani event saat form dikirim (tombol submit ditekan)
-  $('#form-absensi').on('submit', function (e) {
-    e.preventDefault(); // Mencegah halaman web dimuat ulang (refresh)
+    // 3. Profile Overlay Toggle
+    $('.profile-toggle').on('click', function(e) {
+        // Mencegah overlay tertutup kalau kita klik di area box putihnya
+        if ($(e.target).closest('.profile-content').length && !$(e.target).closest('button').length) {
+            return; 
+        }
 
-    // Ambil nilai dari inputan
-    let nama = $('#nama').val();
-    let instansi = $('#instansi').val();
-    let status = $('#status').val();
-    
-    // Dapatkan tanggal hari ini
-    let tanggalSekarang = new Date().toLocaleDateString('id-ID');
+        const overlay = $('#profile-overlay');
+        if (overlay.css('display') === 'none') {
+            overlay.css('display', 'flex').hide().fadeIn(200);
+        } else {
+            overlay.fadeOut(200);
+        }
+    });
 
-    // Buat objek data baru
-    let dataBaru = {
-      nama: nama,
-      instansi: instansi,
-      status: status,
-      tanggal: tanggalSekarang
-    };
+    // 4. Form Izin View Toggle
+    $('.izin-trigger').on('click', function() {
+        const action = $(this).data('action');
+        
+        if (action === 'show') {
+            $('#absensi-main-view').addClass('hidden');
+            $('#absensi-izin-view').removeClass('hidden').hide().fadeIn(300);
+        } else {
+            $('#absensi-izin-view').addClass('hidden');
+            $('#absensi-main-view').removeClass('hidden').hide().fadeIn(300);
+        }
+    });
 
-    // Ambil data lama, tambahkan data baru, lalu simpan kembali
-    let dataLama = ambilData();
-    dataLama.push(dataBaru);
-    localStorage.setItem('sirema_data', JSON.stringify(dataLama));
+    // 5. Submit Form Izin
+    $('#form-izin').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Di sini nantinya kamu bisa panggil fungsi AJAX ke backend/API
+        alert('Izin Berhasil Dikirim!');
+        
+        // Otomatis kembali ke menu utama absensi setelah submit
+        $('.izin-trigger[data-action="hide"]').trigger('click');
+        $(this).trigger('reset'); // Kosongkan form
+    });
 
-    // Bersihkan form input kembali kosong
-    $('#nama').val('');
-    $('#instansi').val('');
-    $('#status').val('Hadir');
+    // 6. Live Clock
+    setInterval(function() {
+        const now = new Date();
+        $('#real-clock').text(now.toLocaleTimeString('id-ID', { hour12: false }));
+    }, 1000);
 
-    // Perbarui tampilan tabel
-    tampilkanData();
-    alert('Data berhasil disimpan!');
-  });
-
-  // 4. Menangani event tombol hapus
-  // Kita pakai event delegation (on 'click' pada elemen induk) karena tombol hapus dibuat dinamis
-  $('#data-magang').on('click', '.btn-hapus', function () {
-    let idHapus = $(this).data('id'); // Ambil index dari atribut data-id
-    let konfirmasi = confirm('Yakin ingin menghapus data ini?');
-
-    if (konfirmasi) {
-      let data = ambilData();
-      data.splice(idHapus, 1); // Hapus 1 item berdasarkan index
-      localStorage.setItem('sirema_data', JSON.stringify(data));
-      tampilkanData(); // Perbarui tabel
-    }
-  });
-
-  // 5. Jalankan fungsi tampilkanData() saat halaman pertama kali dibuka
-  tampilkanData();
 });
