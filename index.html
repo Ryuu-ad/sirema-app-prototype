@@ -91,9 +91,36 @@
         <section id="mendaftar" class="page container mx-auto px-6 py-16">
             <h2 class="text-3xl font-black text-blue-900 mb-8 font-heading">Formulir Pendaftaran</h2>
             <div class="max-w-2xl bg-white p-10 rounded-2xl shadow-lg border-t-8 border-unnes">
-                <form class="space-y-4">
-                    <button class="w-full bg-blue-900 text-yellow-400 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-blue-800 transition">Daftar Sekarang</button>
+                <form id="form-pendaftaran" class="space-y-4">
+                    <div>
+                        <label class="block font-bold text-sm mb-1">Nama Lengkap</label>
+                        <input type="text" id="nama_lengkap" class="w-full border p-3 rounded-lg bg-gray-50" required>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-sm mb-1">Sebagai</label>
+                        <select id="peran" class="w-full border p-3 rounded-lg bg-gray-50">
+                            <option value="Mahasiswa">Mahasiswa</option>
+                            <option value="Siswa">Siswa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-sm mb-1">Nomor Telepon</label>
+                        <input type="tel" id="nomor_telepon" class="w-full border p-3 rounded-lg bg-gray-50" required>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-sm mb-1">Asal Sekolah/Universitas</label>
+                        <input type="text" id="asal_instansi" class="w-full border p-3 rounded-lg bg-gray-50" required>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-sm mb-1">Alasan Magang</label>
+                        <textarea id="alasan_magang" class="w-full border p-3 rounded-lg bg-gray-50 h-32" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-900 text-yellow-400 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-blue-800 transition">
+                        Daftar Sekarang
+                    </button>
                 </form>
+                <div id="container-peserta" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                </div>
             </div>
         </section>
 
