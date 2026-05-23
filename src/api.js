@@ -1,5 +1,5 @@
 // URL backend Node.js kamu
-const BASE_URL = 'http://localhost:5000/api/peserta';
+const BASE_URL = '/api/peserta';
 
 // 1. Fungsi Create (Mengirim data pendaftaran)
 export const apiDaftarPeserta = (data) => {
