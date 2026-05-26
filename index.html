@@ -26,6 +26,11 @@
             <div class="text-2xl font-bold text-unnes-yellow font-heading cursor-pointer nav-trigger" data-page="beranda">SIREMA</div>
             <div class="flex items-center space-x-6">
                 <button class="hover:text-yellow-400 font-medium nav-trigger" data-page="tentang">Tentang Kami</button>
+                
+                <button class="hover:text-yellow-400 font-medium nav-trigger" data-role="guest" data-page="mendaftar">Daftar Magang</button>
+                <button class="hover:text-yellow-400 font-medium nav-trigger" data-role="logged-in" data-page="absensi">Absensi</button>
+                <button class="hover:text-yellow-400 font-medium nav-trigger" data-role="logged-in" data-page="tugas">Tugas</button>
+                
                 <button class="profile-toggle flex items-center space-x-2 bg-yellow-500 text-blue-900 px-4 py-1 rounded-full font-bold">
                     <i class="fas fa-user-circle"></i> <span>Profile</span>
                 </button>
@@ -34,20 +39,32 @@
     </header>
 
     <div id="profile-overlay" class="profile-toggle">
-        <div class="bg-white w-80 h-full p-8 shadow-2xl profile-content">
-            <div class="flex justify-between items-center mb-8 border-b pb-4">
-                <h3 class="text-xl font-bold text-unnes font-heading">Data Peserta</h3>
-                <button class="profile-toggle"><i class="fas fa-times text-gray-400"></i></button>
+        <div class="bg-white w-80 h-full p-8 shadow-2xl profile-content flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center mb-8 border-b pb-4">
+                    <h3 class="text-xl font-bold text-unnes font-heading">Data Akun</h3>
+                    <button class="profile-toggle"><i class="fas fa-times text-gray-400"></i></button>
+                </div>
+                
+                <div class="space-y-6 info-peserta-logged-in">
+                    <div><p class="text-xs text-gray-400 uppercase font-bold">Nama Lengkap</p><p class="font-semibold">Ahmad Rivaldi</p></div>
+                    <div><p class="text-xs text-gray-400 uppercase font-bold">Status Keanggotaan</p><p class="font-semibold text-green-600">Siswa Magang Aktif</p></div>
+                </div>
+                
+                <div class="info-peserta-guest text-center py-10 text-gray-500 hidden">
+                    <i class="fas fa-lock text-4xl mb-3 block"></i>
+                    Anda belum login ke sistem.
+                </div>
             </div>
-            <div class="space-y-6">
-                <div><p class="text-xs text-gray-400 uppercase font-bold">Nama Lengkap</p><p class="font-semibold">Ahmad Rivaldi</p></div>
-                <div><p class="text-xs text-gray-400 uppercase font-bold">Nomor Telepon</p><p class="font-semibold">0812-3456-7890</p></div>
-                <div><p class="text-xs text-gray-400 uppercase font-bold">Alamat Rumah</p><p class="font-semibold">Jl. Gajah Mada No. 12, Semarang</p></div>
+            
+            <div class="border-t pt-4">
+                <button id="btn-auth-action" class="w-full py-3 rounded-xl font-bold uppercase tracking-wider text-sm transition"></button>
             </div>
         </div>
     </div>
 
     <main>
+        
         <section id="beranda" class="page active-page">
             <div class="relative h-[70vh] bg-gray-900 flex items-end p-12 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover opacity-40">
@@ -56,23 +73,23 @@
                 </div>
             </div>
             <div class="container mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 pb-20">
-                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="mendaftar">
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-role="guest" data-page="mendaftar">
                     <i class="fas fa-user-plus text-3xl mb-4 text-blue-900"></i>
                     <h3 class="font-bold font-heading">Mendaftar Magang</h3>
                 </div>
-                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="peserta">
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-role="both" data-page="peserta">
                     <i class="fas fa-users text-3xl mb-4 text-blue-900"></i>
                     <h3 class="font-bold font-heading">Daftar Peserta</h3>
                 </div>
-                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="peraturan">
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-role="both" data-page="peraturan">
                     <i class="fas fa-gavel text-3xl mb-4 text-blue-900"></i>
                     <h3 class="font-bold font-heading">Peraturan</h3>
                 </div>
-                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="absensi">
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-role="logged-in" data-page="absensi">
                     <i class="fas fa-clock text-3xl mb-4 text-blue-900"></i>
                     <h3 class="font-bold font-heading">Absensi</h3>
                 </div>
-                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-page="tugas">
+                <div class="nav-trigger bg-white p-8 rounded-xl shadow-xl border-b-4 border-yellow-500 cursor-pointer hover:-translate-y-2 transition" data-role="logged-in" data-page="tugas">
                     <i class="fas fa-tasks text-3xl mb-4 text-blue-900"></i>
                     <h3 class="font-bold font-heading">Tugas</h3>
                 </div>
@@ -85,7 +102,7 @@
                 <div class="bg-white p-10 rounded-2xl shadow-sm mb-16 text-lg leading-relaxed">
                     UPT Kearsipan Universitas Negeri Semarang merupakan unit yang berfokus pada tata kelola arsip universitas guna mendukung transparansi dan akuntabilitas informasi di lingkungan kampus konservasi.
                 </div>
-                </div>
+            </div>
         </section>
 
         <section id="mendaftar" class="page container mx-auto px-6 py-16">
@@ -119,7 +136,39 @@
                         Daftar Sekarang
                     </button>
                 </form>
-                <div id="container-peserta" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="peserta" class="page container mx-auto px-6 py-16">
+            <h2 class="text-3xl font-black text-blue-900 mb-8 font-heading">Daftar Peserta Magang</h2>
+            <div id="container-peserta" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="peraturan" class="page container mx-auto px-6 py-16">
+            <h2 class="text-3xl font-black text-blue-900 mb-2 font-heading">Peraturan & Tata Tertib Magang</h2>
+            <p class="text-gray-500 mb-8">Wajib dipatuhi oleh seluruh peserta magang di UPT Kearsipan Universitas Negeri Semarang.</p>
+            <div class="bg-white p-8 rounded-2xl shadow-md space-y-6 border border-gray-100">
+                <div class="flex items-start space-x-4 border-b pb-4 border-gray-100">
+                    <div class="bg-blue-900 text-yellow-400 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold font-heading">1</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Ketepatan Waktu</h4>
+                        <p class="text-gray-600 mt-1">Jam kerja operasional dimulai pukul 07.30 s.d 16.00 WIB. Toleransi keterlambatan maksimal adalah 15 menit.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4 border-b pb-4 border-gray-100">
+                    <div class="bg-blue-900 text-yellow-400 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold font-heading">2</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Pakaian & Atribut</h4>
+                        <p class="text-gray-600 mt-1">Menggunakan pakaian formal rapi berkerah (sesuai ketentuan instansi asal/sekolah), menggunakan sepatu tertutup, serta wajib mengenakan tanda pengenal.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="bg-blue-900 text-yellow-400 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold font-heading">3</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Etika Kebersihan</h4>
+                        <p class="text-gray-600 mt-1">Menjaga kerahasiaan dokumen arsip statis maupun dinamis, serta menjaga kebersihan ruang kerja dan perangkat digital kearsipan.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -153,15 +202,47 @@
                             <button type="submit" class="w-full bg-blue-900 text-white py-4 rounded-xl font-bold uppercase">Kirim Izin</button>
                         </form>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tugas" class="page container mx-auto px-6 py-16">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-black text-blue-900 font-heading">Manajemen Tugas Magang</h2>
+                    <p class="text-gray-500">Daftar penugasan proyek digitalisasi arsip statis.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 h-fit">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4 font-heading border-b pb-2">Ajukan Progres Tugas</h3>
+                    <form id="form-tugas" class="space-y-4">
+                        <input type="hidden" id="tugas-id"> <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Judul Tugas / Proyek</label>
+                            <input type="text" id="judul-tugas" class="w-full border p-3 rounded-lg bg-gray-50 text-sm focus:outline-blue-900" placeholder="Contoh: Digitalisasi Arsip Foto 2023" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Deskripsi Pekerjaan</label>
+                            <textarea id="deskripsi-tugas" class="w-full border p-3 rounded-lg bg-gray-50 text-sm h-24 focus:outline-blue-900" placeholder="Detail pekerjaan yang dilakukan..." required></textarea>
+                        </div>
+                        <button type="submit" id="btn-submit-tugas" class="w-full bg-blue-900 text-white py-3 rounded-xl font-bold uppercase text-xs tracking-wider">Kirim Tugas</button>
+                        <button type="button" id="btn-batal-edit" class="w-full bg-gray-200 text-gray-700 py-2 rounded-xl font-bold text-xs uppercase hidden">Batal Edit</button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-2 space-y-4" id="container-tugas">
                     </div>
             </div>
         </section>
         
-        </main>
+    </main>
 
     <footer class="bg-unnes text-white pt-16 pb-8 mt-20">
-        <button class="nav-trigger block text-sm hover:translate-x-2 transition underline decoration-yellow-500 underline-offset-4 font-medium uppercase" data-page="beranda">Kembali ke Beranda</button>
-        </footer>
+        <div class="container mx-auto px-6">
+            <button class="nav-trigger block text-sm hover:translate-x-2 transition underline decoration-yellow-500 underline-offset-4 font-medium uppercase" data-page="beranda">Kembali ke Beranda</button>
+        </div>
+    </footer>
 
     <script type="module" src="./src/main.js"></script>
 </body>
