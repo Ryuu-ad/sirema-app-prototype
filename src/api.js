@@ -1,59 +1,20 @@
-// src/api.js
+// URL backend Node.js kamu
+const BASE_URL = '/api/peserta';
 
-// URL Relatif (Bisa diubah jadi URL lengkap jika backend & frontend dipisah di Replit)
-const PESERTA_URL = '/api/peserta';
-const TUGAS_URL = '/api/tugas';
-
-// ==========================================
-// API PESERTA MAGANG
-// ==========================================
+// 1. Fungsi Create (Mengirim data pendaftaran)
 export const apiDaftarPeserta = (data) => {
     return $.ajax({
-        url: PESERTA_URL,
+        url: BASE_URL,
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data)
     });
 };
 
+// 2. Fungsi Read (Mengambil semua data peserta)
 export const apiGetPeserta = () => {
     return $.ajax({
-        url: PESERTA_URL,
+        url: BASE_URL,
         method: 'GET'
-    });
-};
-
-// ==========================================
-// API TUGAS MAGANG
-// ==========================================
-export const apiGetTugas = () => {
-    return $.ajax({
-        url: TUGAS_URL,
-        method: 'GET'
-    });
-};
-
-export const apiCreateTugas = (data) => {
-    return $.ajax({
-        url: TUGAS_URL,
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(data)
-    });
-};
-
-export const apiUpdateTugas = (id, data) => {
-    return $.ajax({
-        url: `${TUGAS_URL}/${id}`,
-        method: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(data)
-    });
-};
-
-export const apiDeleteTugas = (id) => {
-    return $.ajax({
-        url: `${TUGAS_URL}/${id}`,
-        method: 'DELETE'
     });
 };
